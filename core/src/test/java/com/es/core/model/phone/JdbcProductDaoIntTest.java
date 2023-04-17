@@ -9,8 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -77,6 +76,10 @@ public class JdbcProductDaoIntTest {
     public void testInsertPhone() {
         long newId = 10L;
         String newModel = "test_model";
+        Set<Color> testColors = new HashSet<>();
+        testColors.add(new Color(1000L, "Black"));
+        testColors.add(new Color(1002L, "Yellow"));
+        testPhone.setColors(testColors);
         testPhone.setId(newId);
         testPhone.setModel(newModel);
 
@@ -85,6 +88,6 @@ public class JdbcProductDaoIntTest {
 
         assertTrue(phoneFound.isPresent());
         assertEquals(newModel, phoneFound.get().getModel());
+        assertEquals(testColors.size(), phoneFound.get().getColors().size());
     }
-
 }

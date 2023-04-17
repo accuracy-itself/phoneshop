@@ -11,7 +11,7 @@
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
-            <value>classpath:conf/application.properties</value>
+            <value>/WEB-INF/conf/application.properties</value>
         </property>
     </bean>
 
