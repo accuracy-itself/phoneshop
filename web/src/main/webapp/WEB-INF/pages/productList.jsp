@@ -12,6 +12,8 @@
         <td>Image</td>
         <td>Brand</td>
         <td>Model</td>
+        <td>Color</td>
+        <td>Display size</td>
         <td>Price</td>
       </tr>
     </thead>
@@ -22,6 +24,12 @@
         </td>
         <td>${phone.brand}</td>
         <td>${phone.model}</td>
+        <td>
+          <c:forEach items="${phone.colors}" var="color" varStatus="loop">
+            ${color.code}
+          <c:if test="${!loop.last}">,</c:if>
+      </c:forEach></td>
+        <td>${phone.displaySizeInches}</td>
         <td>$ ${phone.price}</td>
       </tr>
     </c:forEach>

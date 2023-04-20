@@ -4,6 +4,11 @@ public class Color {
     private Long id;
     private String code;
 
+    public Color(Long id, String code) {
+        this.id = id;
+        this.code = code;
+    }
+
     public Long getId() {
         return id;
     }

@@ -11,7 +11,7 @@
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
-            <value>/WEB-INF/conf/application.properties</value>
+            <value>classpath:conf/application-test.properties</value>
         </property>
     </bean>
 
@@ -28,5 +28,9 @@
 
     <jdbc:initialize-database enabled="${db.insertSchema}" data-source="dataSource">
         <jdbc:script location="classpath:db/schema.sql" />
+    </jdbc:initialize-database>
+
+    <jdbc:initialize-database enabled="${db.insertDemodata}" data-source="dataSource">
+        <jdbc:script location="classpath:db/demodata-phones-test.sql" />
     </jdbc:initialize-database>
 </beans>
