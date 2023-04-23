@@ -54,7 +54,7 @@ public class JdbcProductDaoIntTest {
     @Test
     public void testGetPhonesWithLimit() {
         int limit = 7;
-        assertEquals(limit, phoneDao.findAll(0, limit).size());
+        assertEquals(limit, phoneDao.findAll("", null, null,0, limit).size());
     }
 
     @Test
