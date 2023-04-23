@@ -1,0 +1,115 @@
+img.product-tile {
+  max-width: 72px;
+  transition: transform .3s;
+}
+
+ .product-tile:hover {
+  transform:scale(3.5);
+  border: 1px solid #009879;
+  border-radius: 5px;
+  position: absolute;
+}
+
+.product-table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.product-table__row {
+    height: 101px;
+}
+
+.product-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px 15px;
+}
+
+.product-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.product-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.product-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.price, .quantity {
+    text-align: right;
+}
+
+.quantity {
+    background-color:inherit;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    width: 80px;
+}
+
+.quantity:focus {
+    outline: 0;
+    background-color: #f7f7f7;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    column-gap: 20px;
+    font: 20px 'Lobster Two', Helvetica, sans-serif;
+    color: #2b2b2b;
+}
+
+.color-dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 2px solid #dddddd;
+}
+
+.product-list-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.page-number {
+    text-decoration:none
+}
+
+.search-phone {
+    display: flex;
+    justify-content: center;
+}
+
+.add-button {
+    background-color: #edf5ff;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+}
+
+.add-button:hover {
+    background-color: #ccebff;
+    cursor:pointer;
+}
+
+.error {
+    color: red;
+}

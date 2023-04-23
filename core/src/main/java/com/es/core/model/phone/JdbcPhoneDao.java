@@ -23,19 +23,36 @@ public class JdbcPhoneDao implements PhoneDao {
                     "from phones " +
                     "left join phone2color on phone2color.phoneId = phones.id " +
                     "left join colors on phone2color.colorId = colors.id " +
-                    "where phones.id = ?";
+                    "where phones.id = ? ";
 
-    private final String QUERY_SELECT_PHONES_WITH_LIMIT_OFFSET =
+    private final String QUERY_SELECT_AVAILABLE =
+            "join stocks on stocks.phoneId = phones.id " +
+                    "where phones.price is not null and stocks.stock > 0 ";
+    private final String QUERY_SELECT_AVAILABLE_PHONES_WITH =
             "select phones.*, " +
                     "colors.id as colorId," +
                     "colors.code as colorCode " +
-                    "from (select * from phones offset ? limit ? ) as phones " +
-                    "left join phone2color on phone2color.phoneId = phones.id " +
-                    "left join colors on phone2color.colorId = colors.id";
+                    "from (select * from phones " +
+                    QUERY_SELECT_AVAILABLE;
 
+    private final String QUERY_OFFSET_LIMIT = "offset ? limit ? ) as phones ";
+
+    private final String QUERY_JOIN_COLOR =
+            "left join phone2color on phone2color.phoneId = phones.id " +
+                    "left join colors on phone2color.colorId = colors.id ";
     private final String QUERY_INSERT_PHONE_2_COLOR =
             "insert into phone2color (phoneId, colorId) " +
-                    "values (?, ?)";
+                    "values (?, ?) ";
+
+    private final String QUERY_COUNT_AVAILABLE_PHONES =
+            "select count(1) from phones " +
+                    QUERY_SELECT_AVAILABLE;
+
+    private final String QUERY_SORT_ORDER_BY =
+            "order by ";
+
+    private final String QUERY_SEARCH_MODEL =
+            " lower(phones.model) like '%?%' ";
 
 
     public Optional<Phone> get(final Long key) {
@@ -73,9 +90,9 @@ public class JdbcPhoneDao implements PhoneDao {
         phoneParameters.put("imageUrl", phone.getImageUrl());
         phoneSimpleJdbcInsert.execute(phoneParameters);
 
-        Map<String, Object> phone2colorParametres = new HashMap<>();
+        Map<String, Object> phone2colorParameters = new HashMap<>();
         SimpleJdbcInsert phone2colorSimpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("phone2color");
-        phone2colorSimpleJdbcInsert.execute(phone2colorParametres);
+        phone2colorSimpleJdbcInsert.execute(phone2colorParameters);
 
         jdbcTemplate.batchUpdate(QUERY_INSERT_PHONE_2_COLOR,
                 phone.getColors(),
@@ -86,7 +103,38 @@ public class JdbcPhoneDao implements PhoneDao {
                 });
     }
 
-    public List<Phone> findAll(int offset, int limit) {
-        return jdbcTemplate.query(QUERY_SELECT_PHONES_WITH_LIMIT_OFFSET, new PhoneResultSetExtractor(), offset, limit);
+    public List<Phone> findAll(String query, SortField sortField, SortOrder sortOrder, int offset, int limit) {
+        //String queryPhones =
+        StringBuilder queryPhones = new StringBuilder(QUERY_SELECT_AVAILABLE_PHONES_WITH);
+
+        boolean queryEmpty = query == null || query.trim().equals("");
+        if (!queryEmpty) {
+            queryPhones.append(" and ").append(QUERY_SEARCH_MODEL.replace("?", query));
+        }
+
+        if (sortField != null && sortOrder != null) {
+            if (sortField == SortField.BRAND || sortField == SortField.MODEL) {
+                queryPhones.append(QUERY_SORT_ORDER_BY).append("lower(").append(sortField).append(") ");
+            } else {
+                queryPhones.append(QUERY_SORT_ORDER_BY).append(sortField).append(" ");
+            }
+
+            queryPhones.append(sortOrder).append(" ");
+        }
+
+        queryPhones.append(QUERY_OFFSET_LIMIT);
+        queryPhones.append(QUERY_JOIN_COLOR);
+
+        return jdbcTemplate.query(queryPhones.toString(), new PhoneResultSetExtractor(), offset, limit);
+    }
+
+    @Override
+    public int countAvailable(String query) {
+        StringBuilder queryPhones = new StringBuilder(QUERY_COUNT_AVAILABLE_PHONES);
+        boolean queryEmpty = query == null || query.trim().equals("");
+        if (!queryEmpty) {
+            queryPhones.append("and " + QUERY_SEARCH_MODEL.replace("?", query));
+        }
+        return jdbcTemplate.queryForObject(queryPhones.toString(), Integer.class);
     }
 }
