@@ -1,5 +1,8 @@
-package com.es.core.model.phone;
+package com.es.core.test.model.phone;
 
+import com.es.core.model.phone.Color;
+import com.es.core.model.phone.Phone;
+import com.es.core.model.phone.PhoneDao;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -53,8 +59,8 @@ public class JdbcProductDaoIntTest {
 
     @Test
     public void testGetPhonesWithLimit() {
-        int limit = 7;
-        assertEquals(limit, phoneDao.findAll(0, limit).size());
+        int limit = 4;
+        assertEquals(limit, phoneDao.findAll("", null, null,0, limit).size());
     }
 
     @Test
