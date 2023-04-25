@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="<c:url value="/resources/scripts/addProductToCart.js"/>"></script>
 
 <tags:master pageTitle="Product List">
   <form class="search-phone">
@@ -61,9 +59,9 @@
           <td>
                <input name="quantity" type="number" id="quantity${phone.id}" class="quantity" value="1"
                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-               <p id="error-quantity${phone.id}" class="error">
-
-               </p>
+               <br>
+               <span id="error-quantity${phone.id}" class="error"></span>
+               <span id="success-quantity${phone.id}" class="success"></span>
           </td>
           <td>
             <button onclick="addToCart(${phone.id})" class="add-button">Add to cart</button>
@@ -78,7 +76,7 @@
         value="productList?query=${param.query}&sortField=${param.sortField}&sortOrder=${param.sortOrder}"/>
 
       <c:if test="${page > 1}">
-        <td><a href="${pageUrl}&page=${page - 1}" style="text-decoration:none">&#60;</a></td>
+        <td><a href="${pageUrl}&page=${page - 1}">&#60;</a></td>
       </c:if>
 
       <table cellpadding="5" cellspacing="5">
@@ -97,7 +95,7 @@
       </table>
 
       <c:if test="${page < pagesAmount}">
-          <td><a href="${pageUrl}&page=${page + 1}" style="text-decoration:none">&#62;</a></td>
+          <td><a href="${pageUrl}&page=${page + 1}">&#62;</a></td>
       </c:if>
   </div>
 </tags:master>

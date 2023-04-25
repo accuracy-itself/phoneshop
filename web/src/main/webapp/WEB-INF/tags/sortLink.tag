@@ -3,8 +3,7 @@
 <%@ attribute name="sortField" required="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<a href="?sortField=${sortField}&sortOrder=${sortOrder}&query=${param.query}"
-style="${sortField eq param.sortField and sortOrder eq param.sortOrder ? 'font-weight: bold' : ''}; text-decoration:none">
+<a href="?sortField=${sortField}&sortOrder=${sortOrder}&query=${param.query}">
 <c:if test="${sortOrder == 'asc'}" >&uarr;
 </c:if>
 <c:if test="${sortOrder == 'desc'}" >&darr;

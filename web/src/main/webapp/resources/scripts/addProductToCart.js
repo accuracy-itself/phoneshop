@@ -14,10 +14,14 @@ function addToCart(phoneId) {
         success: function (response) {
                 $("#cart-quantity").html(response.totalQuantity);
                 $("#cart-cost").html(response.totalCost);
+                $("#error-quantity" + phoneId).html("");
+                $("#success-quantity" + phoneId).html("Added successfully!");
                 },
         error: function (error) {
+        console.log("error: ", error);
         console.log("error-quantity" + phoneId);
-                    $("#error-quantity" + phoneId).html("Error adding")
+                    $("#error-quantity" + phoneId).html(error.responseText);
+                    $("#success-quantity" + phoneId).html("");
                 }
     });
 }

@@ -10,9 +10,9 @@ import java.io.Serializable;
 public class CartItem implements Serializable {
     private Long id;
 
-    private Long quantity;
+    private Integer quantity;
 
-    public CartItem(Long id, Long quantity) {
+    public CartItem(Long id, Integer quantity) {
         this.id = id;
         this.quantity = quantity;
     }

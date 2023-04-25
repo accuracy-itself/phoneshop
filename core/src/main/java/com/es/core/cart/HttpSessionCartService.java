@@ -1,6 +1,8 @@
 package com.es.core.cart;
 
 import com.es.core.model.phone.JdbcPhoneDao;
+import com.es.core.model.phone.stock.JdbcStockDao;
+import com.es.core.model.phone.stock.OutOfStockException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class HttpSessionCartService implements CartService {
     private final Cart cart;
     private final JdbcPhoneDao phoneDao;
+    private final JdbcStockDao stockDao;
+
 
     @Override
     public synchronized Cart getCart() {
@@ -21,7 +25,7 @@ public class HttpSessionCartService implements CartService {
     }
 
     @Override
-    public void addPhone(Long phoneId, Long quantity) {
+    public void addPhone(Long phoneId, Integer quantity) throws OutOfStockException {
         List<CartItem> items = cart.getItems();
         Optional<CartItem> cartItem = items.stream()
                 .filter(item -> item.getId().equals(phoneId))
@@ -31,8 +35,9 @@ public class HttpSessionCartService implements CartService {
             quantity += cartItem.get().getQuantity();
         }
 
-        if (quantity > 100) {
-            //throw new OutOfStockException(product, quantity, product.getStock());
+        Integer stockAvailable = stockDao.get(phoneId).get().getStock() - stockDao.get(phoneId).get().getReserved();
+        if (quantity > stockAvailable) {
+            throw new OutOfStockException(phoneId, quantity, stockAvailable);
         } else {
             if (cartItem.isPresent()) {
                 cartItem.get().setQuantity(quantity);
@@ -54,9 +59,10 @@ public class HttpSessionCartService implements CartService {
         throw new UnsupportedOperationException("TODO");
     }
 
-    private synchronized void recalculateCart(Cart cart) {
+    @Override
+    public synchronized void recalculateCart(Cart cart) {
         cart.setTotalQuantity(cart.getItems().stream()
-                .map(CartItem::getQuantity).mapToLong(Long::longValue).sum()
+                .map(CartItem::getQuantity).mapToInt(Integer::intValue).sum()
         );
 
         cart.setTotalCost(cart.getItems().stream()

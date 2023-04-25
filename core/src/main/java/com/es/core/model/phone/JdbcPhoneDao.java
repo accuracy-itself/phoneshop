@@ -27,7 +27,7 @@ public class JdbcPhoneDao implements PhoneDao {
 
     private final String QUERY_SELECT_AVAILABLE =
             "join stocks on stocks.phoneId = phones.id " +
-                    "where phones.price is not null and stocks.stock > 0 ";
+                    "where phones.price is not null and stocks.stock > stocks.reserved ";
     private final String QUERY_SELECT_AVAILABLE_PHONES_WITH =
             "select phones.*, " +
                     "colors.id as colorId," +

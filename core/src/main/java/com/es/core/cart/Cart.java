@@ -19,7 +19,7 @@ import java.util.List;
 public class Cart implements Serializable {
     private List<CartItem> items;
     private BigDecimal totalCost;
-    private Long totalQuantity;
+    private Integer totalQuantity;
 
     public Cart() {
         this.items = new ArrayList<>();

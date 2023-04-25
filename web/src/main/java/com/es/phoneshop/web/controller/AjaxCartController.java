@@ -4,7 +4,9 @@ import com.es.core.cart.Cart;
 import com.es.core.cart.CartInfo;
 import com.es.core.cart.CartItem;
 import com.es.core.cart.CartService;
+import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.validation.QuantityValidator;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -33,20 +35,20 @@ public class AjaxCartController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public CartInfo addPhone(@RequestBody @Valid CartItem cartItem,
-                             BindingResult bindingResult) {
+    public ResponseEntity<?> addPhone(@RequestBody @Valid CartItem cartItem, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return null;
+            return ResponseEntity.badRequest()
+                    .body("Quantity must be positive.");
         }
         try {
             cartService.addPhone(cartItem.getId(), cartItem.getQuantity());
-        } catch (Exception e) {
-            return null;
+        } catch (OutOfStockException e) {
+            return ResponseEntity.badRequest()
+                    .body("Out of stock, available: " + e.getStockAvailable() + ".");
         }
 
         Cart cart = cartService.getCart();
 
-        return new CartInfo(cart.getTotalCost(), cart.getTotalQuantity());
+        return ResponseEntity.ok().body(new CartInfo(cart.getTotalCost(), cart.getTotalQuantity()));
     }
 }

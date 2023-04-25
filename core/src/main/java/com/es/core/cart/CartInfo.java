@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CartInfo {
     private BigDecimal totalCost;
-    private Long totalQuantity;
+    private Integer totalQuantity;
 }
