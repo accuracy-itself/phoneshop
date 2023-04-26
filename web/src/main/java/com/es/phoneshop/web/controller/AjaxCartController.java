@@ -13,7 +13,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -38,7 +37,7 @@ public class AjaxCartController {
     public ResponseEntity<?> addPhone(@RequestBody @Valid CartItem cartItem, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest()
-                    .body("Quantity must be positive.");
+                    .body("Quantity must be a positive number.");
         }
         try {
             cartService.addPhone(cartItem.getId(), cartItem.getQuantity());

@@ -125,3 +125,15 @@ a {
 a:active {
   color: green;
 }
+
+.product-description {
+    display: flex;
+        justify-content: center;
+
+    align-items: center;
+}
+
+.phone-column {
+    text-align: center;
+    width: 25%
+}

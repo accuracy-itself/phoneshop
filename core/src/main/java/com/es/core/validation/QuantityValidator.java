@@ -12,7 +12,7 @@ public class QuantityValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         CartItem cartItem = (CartItem) o;
-        if (cartItem.getQuantity() <= 0) {
+        if (cartItem.getQuantity() == null || cartItem.getId() == null || cartItem.getQuantity() <= 0) {
             errors.rejectValue("quantity", "notPositiveError");
         }
     }

@@ -46,7 +46,7 @@
            <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${phone.imageUrl}">
           </td>
           <td>${phone.brand}</td>
-          <td>${phone.model}</td>
+          <td><a href="<c:url value="/productDetails?id=${phone.id}"/>">${phone.model}</a></td>
           <td>
             <c:forEach items="${phone.colors}" var="color" varStatus="loop">
               ${color.code}

@@ -46,6 +46,7 @@ public class PhoneResultSetExtractor implements ResultSetExtractor<List<Phone>> 
                 phone.setBluetooth(rs.getString("bluetooth"));
                 phone.setPositioning(rs.getString("positioning"));
                 phone.setImageUrl(rs.getString("imageUrl"));
+                phone.setDescription(rs.getString("description"));
 
                 Set<Color> colors = new HashSet<>();
                 do {
