@@ -104,11 +104,11 @@ public class JdbcPhoneDao implements PhoneDao {
     }
 
     public List<Phone> findAll(String query, SortField sortField, SortOrder sortOrder, int offset, int limit) {
-        //String queryPhones =
         StringBuilder queryPhones = new StringBuilder(QUERY_SELECT_AVAILABLE_PHONES_WITH);
 
         boolean queryEmpty = query == null || query.trim().equals("");
         if (!queryEmpty) {
+            query = query.toLowerCase();
             queryPhones.append(" and ").append(QUERY_SEARCH_MODEL.replace("?", query));
         }
 
@@ -133,6 +133,7 @@ public class JdbcPhoneDao implements PhoneDao {
         StringBuilder queryPhones = new StringBuilder(QUERY_COUNT_AVAILABLE_PHONES);
         boolean queryEmpty = query == null || query.trim().equals("");
         if (!queryEmpty) {
+            query = query.toLowerCase();
             queryPhones.append("and " + QUERY_SEARCH_MODEL.replace("?", query));
         }
         return jdbcTemplate.queryForObject(queryPhones.toString(), Integer.class);
