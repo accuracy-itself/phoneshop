@@ -5,15 +5,16 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+import com.es.core.model.phone.Phone;
+
 @Data
 @NoArgsConstructor
 public class CartItem implements Serializable {
-    private Long id;
-
+    private Phone phone;
     private Integer quantity;
 
-    public CartItem(Long id, Integer quantity) {
-        this.id = id;
+    public CartItem(Phone phone, Integer quantity) {
+        this.phone = phone;
         this.quantity = quantity;
     }
 }

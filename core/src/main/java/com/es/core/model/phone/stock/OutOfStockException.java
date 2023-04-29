@@ -2,13 +2,16 @@ package com.es.core.model.phone.stock;
 
 public class OutOfStockException extends Exception {
     private Long phoneId;
-    private int stockRequested;
-    private int stockAvailable;
+    private Integer stockRequested;
+    private Integer stockAvailable;
+
+    private String message;
 
     public OutOfStockException(Long phoneId, int stockRequested, int stockAvailable) {
         this.phoneId = phoneId;
         this.stockRequested = stockRequested;
         this.stockAvailable = stockAvailable;
+        this.message = "Out of stock, available: " + this.stockAvailable.toString() + ".";
     }
 
     public Long getPhoneId() {
@@ -21,5 +24,10 @@ public class OutOfStockException extends Exception {
 
     public int getStockAvailable() {
         return stockAvailable;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

@@ -11,18 +11,22 @@
   <link href="${mainCss}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="<c:url value="/resources/scripts/addProductToCart.js"/>"></script>
+  <script src="<c:url value="/resources/scripts/deleteProductFromCart.js"/>"></script>
 </head>
 <body>
   <header >
   <div class="header">
-  <a href="productList?">
+  <a href="<c:url value="productList"/>">
       <img src="${pageContext.servletContext.contextPath}/resources/images/icon.png" alt="no image"/>
   </a>
   <br>
-  <div>Cart:
-    <span id="cart-quantity">${cart.totalQuantity}</span>
-    items, cost
-    <span id="cart-cost">${cart.totalCost}</span> $
+  <div>
+    <a href="<c:url value="/cart"/>">
+      Cart:
+      <span id="cart-quantity">${cart.totalQuantity}</span>
+      items, cost
+      <span id="cart-cost">${cart.totalCost}</span> $
+    </a>
   </div>
   </div>
       <hr />
