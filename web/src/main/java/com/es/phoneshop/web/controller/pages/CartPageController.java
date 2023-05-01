@@ -4,6 +4,7 @@ import com.es.core.cart.CartService;
 import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.phoneshop.web.dto.CartDto;
 import com.es.phoneshop.web.dto.CartItemDto;
+import com.es.phoneshop.web.dto.converter.CartDtoConverter;
 import com.es.phoneshop.web.validation.QuantityUpdateValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -29,14 +29,8 @@ public class CartPageController {
 
     @ModelAttribute
     public CartDto setCartDto() {
-        List<CartItemDto> cartDtoItems = cartService.getCart().getItems().stream()
-                .map(cartItem -> new CartItemDto(cartItem.getPhone().getId(),
-                        cartItem.getQuantity().toString(),
-                        cartItem.getQuantity()))
-                .collect(Collectors.toList());
-        return new CartDto(cartService.getCart().getTotalCost(),
-                cartService.getCart().getTotalQuantity(),
-                cartDtoItems);
+        CartDtoConverter cartDtoConverter = new CartDtoConverter();
+        return cartDtoConverter.convertToDto(cartService.getCart());
     }
 
     @GetMapping

@@ -10,6 +10,7 @@ import com.es.core.model.phone.Phone;
 @Data
 @NoArgsConstructor
 public class CartItem implements Serializable {
+    private Long id;
     private Phone phone;
     private Integer quantity;
 
