@@ -4,7 +4,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <tags:master pageTitle="Cart">
-  <div class="content">
+  <div class="cart-content">
+    <div class="error">
+        <c:if test="${!cart_error}">${cart_error}</c:if>
+    </div>
     <form:form action="cart" method="post" modelAttribute="cartDto">
     <table class="product-table">
       <thead>
@@ -56,8 +59,14 @@
       </tbody>
     </table>
     <br>
-    <input type="submit" value="Update">
+    <div>
+    <input type="submit" value="Update" class="button">
+    </div>
     </form:form>
+
+    <form action="<c:url value="/order"/>">
+        <button>Order</button>
+    </form>
     <form id="deleteCartItem" method="post">
       </form>
   </div>

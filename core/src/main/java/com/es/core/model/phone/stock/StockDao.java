@@ -5,4 +5,5 @@ import java.util.Optional;
 public interface StockDao {
     Optional<Stock> get(Long phoneId);
     void save(Stock stock);
+    void update(Long phoneId, int reserved);
 }

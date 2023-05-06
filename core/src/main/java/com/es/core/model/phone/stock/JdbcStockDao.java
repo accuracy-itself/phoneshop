@@ -15,6 +15,8 @@ public class JdbcStockDao implements StockDao{
 
     private final String QUERY_SELECT_STOCK = "select * from stocks where stocks.phoneId = ? ";
 
+    private final String QUERY_UPDATE_STOCK = "update stocks set reserved = ? where phoneId = ? ";
+
     @Override
     public Optional<Stock> get(Long phoneId) {
         Stock stock = (Stock)jdbcTemplate.queryForObject(QUERY_SELECT_STOCK, new BeanPropertyRowMapper(Stock.class), phoneId);
@@ -29,5 +31,10 @@ public class JdbcStockDao implements StockDao{
         stockParameters.put("phoneId", stock.getPhone());
         stockParameters.put("reserved", stock.getReserved());
         stockSimpleJdbcInsert.execute(stockParameters);
+    }
+
+    @Override
+    public void update(Long phoneId, int reserved) {
+        jdbcTemplate.update(QUERY_UPDATE_STOCK, reserved, phoneId);
     }
 }

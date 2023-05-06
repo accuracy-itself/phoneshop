@@ -27,6 +27,7 @@
     </bean>
 
     <bean id="jdbcStockDao" class="com.es.core.model.phone.stock.JdbcStockDao"/>
+    <bean id="jdbcOrderDao" class="com.es.core.model.order.JdbcOrderDao"/>
 
     <jdbc:initialize-database enabled="${db.insertSchema}" data-source="dataSource">
         <jdbc:script location="classpath:db/schema.sql" />

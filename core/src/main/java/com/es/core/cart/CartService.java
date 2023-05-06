@@ -20,4 +20,6 @@ public interface CartService {
     void remove(Long phoneId);
 
     void recalculateCart(Cart cart);
+
+    void clearCart();
 }

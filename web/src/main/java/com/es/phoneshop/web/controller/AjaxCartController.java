@@ -42,7 +42,7 @@ public class AjaxCartController {
             cartService.addPhone(cartItemDto.getId(), cartItemDto.getQuantityValue());
         } catch (OutOfStockException e) {
             return ResponseEntity.badRequest()
-                    .body(e.getMessage());
+                    .body(e.getErrorInfos().get(0).getMessage());
         }
 
         Cart cart = cartService.getCart();

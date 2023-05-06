@@ -4,15 +4,13 @@ import com.es.core.cart.Cart;
 import com.es.phoneshop.web.dto.CartDto;
 import com.es.phoneshop.web.dto.CartItemDto;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CartDtoConverter implements DtoConverter<CartDto, Cart> {
+    @Resource
     private CartItemDtoConverter cartItemDtoConverter;
-
-    public CartDtoConverter() {
-        this.cartItemDtoConverter = new CartItemDtoConverter();
-    }
 
     @Override
     public CartDto convertToDto(Cart cart) {
