@@ -99,13 +99,13 @@ img.product-tile {
     justify-content: center;
 }
 
-.add-button {
+.add-button, .delete-button {
     background-color: #edf5ff;
     border: 2px solid #dddddd;
     border-radius: 5px;
 }
 
-.add-button:hover {
+.add-button:hover, .delete-button:hover {
     background-color: #ccebff;
     cursor:pointer;
 }
@@ -124,4 +124,20 @@ a {
 
 a:active {
   color: green;
+}
+
+.product-description {
+    display: flex;
+        justify-content: center;
+
+    align-items: center;
+}
+
+.phone-column {
+    text-align: center;
+    width: 25%
+}
+
+.content {
+    text-align: center;
 }

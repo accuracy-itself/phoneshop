@@ -23,5 +23,7 @@ public class Cart implements Serializable {
 
     public Cart() {
         this.items = new ArrayList<>();
+        this.totalQuantity = 0;
+        this.totalCost = new BigDecimal(0);
     }
 }

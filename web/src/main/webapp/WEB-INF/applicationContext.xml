@@ -6,5 +6,6 @@
     <import resource="classpath:context/applicationContext-core.xml"/>
     <import resource="classpath:context/applicationContext-demoda.xml"/>
 
-    <bean id="quantityValidator" class="com.es.core.validation.QuantityValidator"/>
+    <bean id="quantityValidator" class="com.es.phoneshop.web.validation.QuantityValidator"/>
+    <bean id="quantityUpdateValidator" class="com.es.phoneshop.web.validation.QuantityUpdateValidator"/>
 </beans>

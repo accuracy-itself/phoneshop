@@ -2,6 +2,11 @@ package com.es.core.model.phone.stock;
 
 import com.es.core.model.phone.Phone;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class Stock {
     private Phone phone;
     private Integer stock;
