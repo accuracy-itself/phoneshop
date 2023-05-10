@@ -8,6 +8,10 @@ import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.model.phone.stock.Stock;
 import com.es.core.model.phone.stock.StockDao;
 import com.es.core.model.phone.stock.StockErrorInfo;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderServiceImpl implements OrderService {
     @Resource
     OrderDao orderDao;
@@ -61,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
             Stock stock = stockDao.get(phoneId).get();
             int stockAvailable = stock.getStock() - stock.getReserved();
 
-            if (stockAvailable == 0) {
+            if (stockAvailable < item.getQuantity()) {
                 StockErrorInfo errorInfo = new StockErrorInfo(phoneId, 0, stockAvailable);
                 errorInfos.add(errorInfo);
             }
@@ -76,4 +82,13 @@ public class OrderServiceImpl implements OrderService {
     public Optional<Order> getOrderBySecureId(String secureId) {
         return orderDao.getBySecureId(secureId);
     }
+
+    public BigDecimal getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(BigDecimal deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
 }
