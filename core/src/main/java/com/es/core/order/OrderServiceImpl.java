@@ -1,16 +1,16 @@
 package com.es.core.order;
 
 import com.es.core.cart.Cart;
-import com.es.core.model.order.JdbcOrderDao;
 import com.es.core.model.order.Order;
+import com.es.core.model.order.OrderDao;
 import com.es.core.model.order.OrderItem;
-import com.es.core.model.phone.stock.JdbcStockDao;
 import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.model.phone.stock.Stock;
+import com.es.core.model.phone.stock.StockDao;
 import com.es.core.model.phone.stock.StockErrorInfo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Resource
-    JdbcOrderDao orderDao;
+    OrderDao orderDao;
 
     @Resource
-    JdbcStockDao stockDao;
+    StockDao stockDao;
 
     @Value("${delivery.price}")
     private BigDecimal deliveryPrice;

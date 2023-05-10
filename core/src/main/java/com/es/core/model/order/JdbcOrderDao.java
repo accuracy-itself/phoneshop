@@ -1,13 +1,12 @@
 package com.es.core.model.order;
 
 import com.es.core.model.phone.PhoneDao;
-import com.es.core.model.phone.PhoneResultSetExtractor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
@@ -17,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+@Component
 public class JdbcOrderDao implements OrderDao {
     @Resource
     private JdbcTemplate jdbcTemplate;
