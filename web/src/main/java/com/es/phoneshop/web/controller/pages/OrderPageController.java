@@ -37,7 +37,7 @@ public class OrderPageController {
     private final String CART_ERROR_MESSAGE = "Some models are out of stock, cart was updated.";
     private final String CART_EMPTY_ERROR_MESSAGE = "Cart is empty, add something here.";
 
-    @ModelAttribute
+    @ModelAttribute("orderDto")
     public OrderDto setOrderDto() {
         Order order = orderService.createOrder(cartService.getCart());
         return orderDtoConverter.convertToDto(order);

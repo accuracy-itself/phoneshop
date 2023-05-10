@@ -162,3 +162,11 @@ a:active {
     display: flex;
     justify-content: right;
 }
+
+#success-quantity {
+    text-align: center;
+}
+
+.quantity-td {
+    width: 120px;
+}

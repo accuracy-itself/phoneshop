@@ -8,7 +8,6 @@ import com.es.core.model.phone.stock.JdbcStockDao;
 import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.model.phone.stock.Stock;
 import com.es.core.model.phone.stock.StockErrorInfo;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@PropertySource("/WEB-INF/conf/application.properties")
 public class OrderServiceImpl implements OrderService {
     @Resource
     JdbcOrderDao orderDao;

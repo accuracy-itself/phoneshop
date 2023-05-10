@@ -8,7 +8,7 @@
       <input name="query" value="${param.query}">
       <button>&#x1F50D;</button>
   </form>
-
+    <div id="success-quantity" class="success"></div>
   <p>
     <table class="product-table">
       <thead>
@@ -56,12 +56,11 @@
           </td>
           <td>${phone.displaySizeInches}</td>
           <td class = price>${phone.price} $</td>
-          <td>
+          <td class = "quantity-td">
                <input name="quantity" type="number" id="quantity${phone.id}" class="quantity" value="1"
                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                <br>
                <span id="error-quantity${phone.id}" class="error"></span>
-               <span id="success-quantity${phone.id}" class="success"></span>
           </td>
           <td>
             <button onclick="addToCart(${phone.id})" class="add-button">Add to cart</button>
