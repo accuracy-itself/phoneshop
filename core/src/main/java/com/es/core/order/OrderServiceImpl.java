@@ -83,6 +83,11 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getBySecureId(secureId);
     }
 
+    @Override
+    public List<Order> getAllOrders() {
+        return orderDao.getAllOrders();
+    }
+
     public BigDecimal getDeliveryPrice() {
         return deliveryPrice;
     }

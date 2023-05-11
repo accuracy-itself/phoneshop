@@ -28,6 +28,8 @@ public class JdbcOrderDao implements OrderDao {
 
     private final String QUERY_SELECT_ORDER_BY_SECURE_ID = "select * from orders where orders.secureId = ? ";
 
+    private final String QUERY_SELECT_ALL_ORDERS = "select * from orders ";
+
     private final String QUERY_SELECT_ORDER_ITEMS_BY_ORDER_ID = "select * from order_items where order_items.orderId = ? ";
 
     private final String QUERY_INSERT_ORDER_ITEMS =
@@ -105,5 +107,10 @@ public class JdbcOrderDao implements OrderDao {
                     ps.setLong(2, orderId);
                     ps.setInt(3, orderItem.getQuantity());
                 });
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return jdbcTemplate.query(QUERY_SELECT_ALL_ORDERS, new BeanPropertyRowMapper(Order.class));
     }
 }
