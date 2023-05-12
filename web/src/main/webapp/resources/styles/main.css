@@ -170,3 +170,8 @@ a:active {
 .quantity-td {
     width: 120px;
 }
+
+.user-login {
+    display: flex;
+    justify-content: right;
+}

@@ -9,4 +9,5 @@ public interface OrderDao {
     Optional<Order> getBySecureId(String key);
     void save(Order order);
     List<Order> getAllOrders();
+    void updateStatus(Long orderId, OrderStatus newStatus);
 }

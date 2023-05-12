@@ -11,6 +11,7 @@
   <link href="${mainCss}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="<c:url value="/resources/scripts/addProductToCart.js"/>"></script>
+  <script src="<c:url value="/resources/scripts/changeOrderStatus.js"/>"></script>
 </head>
 <body>
   <header >
@@ -29,6 +30,7 @@
   </div>
   </div>
       <hr />
+  <a href="<c:url value="/admin/orders"/>" class="user-login">admin</a>
   </header>
   <main>
     <jsp:doBody/>

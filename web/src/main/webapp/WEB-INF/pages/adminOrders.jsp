@@ -3,7 +3,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 
-<tags:master pageTitle="Product List">
+<tags:master pageTitle="Order List">
   <p>
     <table class="product-table">
       <thead>
@@ -20,7 +20,7 @@
       <c:forEach var="order" items="${orders}">
         <tr class="product-table__row">
           <td>
-           <a href="#/${order.id}">${order.id}</a>
+           <a href="orders/${order.id}">${order.id}</a>
           </td>
           <td>${order.firstName} ${order.lastName}</td>
           <td>${order.contactPhoneNo}</td>

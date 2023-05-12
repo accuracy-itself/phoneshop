@@ -4,6 +4,7 @@ import com.es.core.cart.Cart;
 import com.es.core.model.order.Order;
 import com.es.core.model.order.OrderDao;
 import com.es.core.model.order.OrderItem;
+import com.es.core.model.order.OrderStatus;
 import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.model.phone.stock.Stock;
 import com.es.core.model.phone.stock.StockDao;
@@ -81,6 +82,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Optional<Order> getOrderBySecureId(String secureId) {
         return orderDao.getBySecureId(secureId);
+    }
+
+    @Override
+    public Optional<Order> getOrderById(Long id) {
+        return orderDao.get(id);
+    }
+
+    @Override
+    public void updateStatus(Long orderId, OrderStatus newStatus) {
+        orderDao.updateStatus(orderId, newStatus);
     }
 
     @Override

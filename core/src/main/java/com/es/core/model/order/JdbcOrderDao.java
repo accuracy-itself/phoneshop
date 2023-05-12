@@ -36,6 +36,8 @@ public class JdbcOrderDao implements OrderDao {
             "insert into order_items (phoneId, orderId, quantity) " +
                     "values (?, ?, ?) ";
 
+    private final String QUERY_UPDATE_STATUS = "update orders set status = ? where id = ? ";
+
     @Override
     public Optional<Order> get(Long orderId) {
         return getOrder(QUERY_SELECT_ORDER_BY_NUMBER_ID, orderId);
@@ -112,5 +114,10 @@ public class JdbcOrderDao implements OrderDao {
     @Override
     public List<Order> getAllOrders() {
         return jdbcTemplate.query(QUERY_SELECT_ALL_ORDERS, new BeanPropertyRowMapper(Order.class));
+    }
+
+    @Override
+    public void updateStatus(Long orderId, OrderStatus newStatus) {
+        jdbcTemplate.update(QUERY_UPDATE_STATUS, newStatus.toString(), orderId);
     }
 }
