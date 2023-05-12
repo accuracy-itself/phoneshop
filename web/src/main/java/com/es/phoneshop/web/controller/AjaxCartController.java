@@ -34,15 +34,17 @@ public class AjaxCartController {
 
     @PostMapping
     public ResponseEntity<?> addPhone(@RequestBody @Valid CartItemDto cartItemDto, BindingResult bindingResult) {
+        String jsonMessageTemplate = "{\"message\": \"%s\"}";
+        String quantityErrorMessage = "Quantity must be a positive number.";
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest()
-                    .body("Quantity must be a positive number.");
+                    .body(String.format(jsonMessageTemplate, quantityErrorMessage));
         }
         try {
             cartService.addPhone(cartItemDto.getId(), cartItemDto.getQuantityValue());
         } catch (OutOfStockException e) {
             return ResponseEntity.badRequest()
-                    .body(e.getErrorInfos().get(0).getMessage());
+                    .body(String.format(jsonMessageTemplate, e.getErrorInfos().get(0).getMessage()));
         }
 
         Cart cart = cartService.getCart();
