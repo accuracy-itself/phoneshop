@@ -1,14 +1,20 @@
 package com.es.core.model.order;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Order
-{
+@AllArgsConstructor
+@NoArgsConstructor
+public class Order {
     private Long id;
-    private List<OrderItem> orderItems;
+    private String secureId;
+    private List<OrderItem> items;
     /**
-     *  A sum of order item prices;
+     * A sum of order item prices;
      */
     private BigDecimal subtotal;
     private BigDecimal deliveryPrice;
@@ -24,6 +30,13 @@ public class Order
 
     private OrderStatus status;
 
+    public Order(List<OrderItem> items, BigDecimal subtotal, BigDecimal deliveryPrice) {
+        this.items = items;
+        this.subtotal = subtotal;
+        this.deliveryPrice = deliveryPrice;
+        this.totalPrice = subtotal.add(deliveryPrice);
+    }
+
     public Long getId() {
         return id;
     }
@@ -32,12 +45,20 @@ public class Order
         this.id = id;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public String getSecureId() {
+        return secureId;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setSecureId(String secureId) {
+        this.secureId = secureId;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> orderItems) {
+        this.items = orderItems;
     }
 
     public BigDecimal getSubtotal() {

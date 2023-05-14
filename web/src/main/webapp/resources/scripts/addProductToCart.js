@@ -15,13 +15,13 @@ function addToCart(phoneId) {
                 $("#cart-quantity").html(response.totalQuantity);
                 $("#cart-cost").html(response.totalCost);
                 $("#error-quantity" + phoneId).html("");
-                $("#success-quantity" + phoneId).html("Added successfully!");
+                $("#success-quantity").html("Added successfully!");
                 },
         error: function (error) {
         console.log("error: ", error);
         console.log("error-quantity" + phoneId);
                     $("#error-quantity" + phoneId).html(error.responseText);
-                    $("#success-quantity" + phoneId).html("");
+                    $("#success-quantity").html("");
                 }
     });
 }

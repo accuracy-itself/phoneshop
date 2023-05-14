@@ -9,7 +9,11 @@ import com.es.phoneshop.web.validation.QuantityUpdateValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -26,10 +30,11 @@ public class CartPageController {
     @Resource
     private QuantityUpdateValidator quantityUpdateValidator;
 
+    @Resource
+    private CartDtoConverter cartDtoConverter;
 
     @ModelAttribute
     public CartDto setCartDto() {
-        CartDtoConverter cartDtoConverter = new CartDtoConverter();
         return cartDtoConverter.convertToDto(cartService.getCart());
     }
 
@@ -50,7 +55,7 @@ public class CartPageController {
                         .collect(Collectors.toMap(CartItemDto::getId, CartItemDto::getQuantityValue)));
             } catch (OutOfStockException e) {
                 Map<Long, String> errors = new HashMap<>();
-                errors.put(e.getPhoneId(), e.getMessage());
+                errors.put(e.getErrorInfos().get(0).getPhoneId(), e.getErrorInfos().get(0).getMessage());
                 model.addAttribute("error_quantities", errors);
             }
         }

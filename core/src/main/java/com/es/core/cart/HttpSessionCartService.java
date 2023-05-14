@@ -4,10 +4,12 @@ import com.es.core.model.phone.JdbcPhoneDao;
 import com.es.core.model.phone.stock.JdbcStockDao;
 import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.model.phone.stock.Stock;
+import com.es.core.model.phone.stock.StockErrorInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +40,10 @@ public class HttpSessionCartService implements CartService {
 
         Integer stockAvailable = stockDao.get(phoneId).get().getStock() - stockDao.get(phoneId).get().getReserved();
         if (quantity > stockAvailable) {
-            throw new OutOfStockException(phoneId, quantity, stockAvailable);
+            StockErrorInfo errorInfo = new StockErrorInfo(phoneId, quantity, stockAvailable);
+            List<StockErrorInfo> errorInfos = new ArrayList<>();
+            errorInfos.add(errorInfo);
+            throw new OutOfStockException(errorInfos);
         } else {
             if (cartItem.isPresent()) {
                 cartItem.get().setQuantity(quantity);
@@ -60,7 +65,10 @@ public class HttpSessionCartService implements CartService {
             Integer stockAvailable = stock.getStock() - stock.getReserved();
 
             if (quantity > stockAvailable) {
-                throw new OutOfStockException(id, quantity, stockAvailable);
+                StockErrorInfo errorInfo = new StockErrorInfo(id, quantity, stockAvailable);
+                List<StockErrorInfo> errorInfos = new ArrayList<>();
+                errorInfos.add(errorInfo);
+                throw new OutOfStockException(errorInfos);
             }
             cartItems.stream()
                     .filter(cartItem -> cartItem.getPhone().getId().equals(id))
@@ -88,5 +96,12 @@ public class HttpSessionCartService implements CartService {
                 .map(item -> item.getPhone().getPrice().multiply(new BigDecimal(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
         );
+    }
+
+    @Override
+    public void clearCart() {
+        cart.setItems(new ArrayList<>());
+        cart.setTotalCost(new BigDecimal(0));
+        cart.setTotalQuantity(0);
     }
 }

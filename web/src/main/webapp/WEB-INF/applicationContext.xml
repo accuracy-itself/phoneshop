@@ -6,6 +6,11 @@
     <import resource="classpath:context/applicationContext-core.xml"/>
     <import resource="classpath:context/applicationContext-demoda.xml"/>
 
+    <bean id="cartDtoConverter" class="com.es.phoneshop.web.dto.converter.CartDtoConverter"/>
+    <bean id="cartItemDtoConverter" class="com.es.phoneshop.web.dto.converter.CartItemDtoConverter"/>
+    <bean id="orderDtoConverter" class="com.es.phoneshop.web.dto.converter.OrderDtoConverter"/>
+    <bean id="orderItemDtoConverter" class="com.es.phoneshop.web.dto.converter.OrderItemDtoConverter"/>
     <bean id="quantityValidator" class="com.es.phoneshop.web.validation.QuantityValidator"/>
     <bean id="quantityUpdateValidator" class="com.es.phoneshop.web.validation.QuantityUpdateValidator"/>
+    <bean id="orderDtoValidator" class="com.es.phoneshop.web.validation.OrderDtoValidator"/>
 </beans>
