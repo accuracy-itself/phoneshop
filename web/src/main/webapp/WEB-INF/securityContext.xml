@@ -8,7 +8,7 @@
     <http auto-config="true">
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <form-login login-page='/login'
-                    default-target-url="/homepage.html"
+                    default-target-url="/admin/orders"
                     authentication-failure-url="/login?error=true" />
         <logout logout-url="/logout" logout-success-url="/productList"/>
         <csrf disabled="true"/>

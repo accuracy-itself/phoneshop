@@ -3,7 +3,10 @@ package com.es.phoneshop.web.controller.pages.admin;
 import com.es.core.model.order.Order;
 import com.es.core.model.order.OrderStatus;
 import com.es.core.order.OrderService;
+import com.es.phoneshop.web.dto.MessageDto;
 import com.es.phoneshop.web.dto.OrderStatusDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,23 +46,22 @@ public class OrdersPageController {
 
     @PostMapping(value = "/{orderId}")
     public ResponseEntity<String> changeOrderStatus(@PathVariable("orderId") Long orderId,
-                                               @RequestBody OrderStatusDto orderStatusDto) {
+                                               @RequestBody OrderStatusDto orderStatusDto) throws JsonProcessingException {
 
         Optional<Order> order = orderService.getOrderById(orderId);
-        String jsonAnswer;
-        String jsonMessageTemplate = "{\"message\": \"%s\"}";
+        ObjectMapper mapper = new ObjectMapper();
         if(order.isPresent()) {
             try {
                 orderService.updateStatus(orderId, OrderStatus.valueOf(orderStatusDto.getStatus()));
-                jsonAnswer = String.format(jsonMessageTemplate, ORDER_STATUS_UPDATED);
-                return ResponseEntity.ok().body(jsonAnswer);
+                MessageDto messageDto = new MessageDto(ORDER_STATUS_UPDATED);
+                return ResponseEntity.ok().body(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(messageDto));
             } catch (IllegalArgumentException e) {
-                jsonAnswer = String.format(jsonMessageTemplate, ORDER_STATUS_WRONG_ERROR);
-                return ResponseEntity.badRequest().body(jsonAnswer);
+                MessageDto messageDto = new MessageDto(ORDER_STATUS_WRONG_ERROR);
+                return ResponseEntity.badRequest().body(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(messageDto));
             }
         } else {
-            jsonAnswer = String.format(jsonMessageTemplate, ORDER_NOT_EXIST_ERROR);
-            return ResponseEntity.badRequest().body(jsonAnswer);
+            MessageDto messageDto = new MessageDto(ORDER_NOT_EXIST_ERROR);
+            return ResponseEntity.badRequest().body(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(messageDto));
         }
     }
 }
