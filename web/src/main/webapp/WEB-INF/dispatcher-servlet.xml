@@ -12,6 +12,8 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <mvc:view-controller path="/login" view-name="login" />
+
     <mvc:resources mapping="/resources/**" location="/resources/"
                    cache-period="31556926"/>
     <mvc:annotation-driven />

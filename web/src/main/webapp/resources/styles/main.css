@@ -170,3 +170,29 @@ a:active {
 .quantity-td {
     width: 120px;
 }
+
+.login-content {
+    width: 300px;
+    overflow: hidden;
+    background-color: #009879;
+    border-radius: 15px ;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.login-content label {
+    color: #ffffff;
+}
+
+.login-error {
+    text-align: center;
+}
+
+.user-login {
+    display:flex;
+    justify-content: right;
+    column-gap: 10px;
+}

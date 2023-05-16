@@ -78,9 +78,38 @@
         <td><a href="${pageUrl}&page=${page - 1}">&#60;</a></td>
       </c:if>
 
+      <c:choose>
+          <c:when test="${page < 6}">
+             <c:set var="pageStart" value="1"/>
+             <c:choose>
+                <c:when test="${pagesAmount le 10}">
+                    <c:set var="pageEnd" value="${pagesAmount}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="pageEnd" value="10"/>
+                </c:otherwise>
+             </c:choose>
+          </c:when>
+          <c:when test="${page > pagesAmount - 4}">
+             <c:set var="pageEnd" value="${pagesAmount}"/>
+             <c:choose>
+                <c:when test="${pagesAmount le 10}">
+                    <c:set var="pageStart" value="1"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="pageStart" value="${pagesAmount - 9}"/>
+                </c:otherwise>
+             </c:choose>
+          </c:when>
+          <c:otherwise>
+             <c:set var="pageStart" value="${page - 5}"/>
+             <c:set var="pageEnd" value="${page + 4}"/>
+          </c:otherwise>
+      </c:choose>
+
       <table cellpadding="5" cellspacing="5">
           <tr>
-              <c:forEach begin="1" end="${pagesAmount}" var="i">
+              <c:forEach begin="${pageStart}" end="${pageEnd}" var="i">
                   <c:choose>
                       <c:when test="${page eq i}">
                           <td>${i}</td>

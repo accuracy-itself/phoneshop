@@ -2,6 +2,7 @@
 <%@ attribute name="pageTitle" required="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
@@ -11,6 +12,7 @@
   <link href="${mainCss}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="<c:url value="/resources/scripts/addProductToCart.js"/>"></script>
+  <script src="<c:url value="/resources/scripts/changeOrderStatus.js"/>"></script>
 </head>
 <body>
   <header >
@@ -29,6 +31,9 @@
   </div>
   </div>
       <hr />
+
+  <tags:login/>
+
   </header>
   <main>
     <jsp:doBody/>
