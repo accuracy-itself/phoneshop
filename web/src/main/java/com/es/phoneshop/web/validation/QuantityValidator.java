@@ -12,7 +12,7 @@ public class QuantityValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         CartItemDto cartItemDto = (CartItemDto) o;
-        String valueName = "quantityValue";
+        String valueName = "quantity";
         QuantityChecker.checkQuantity(cartItemDto, valueName, errors);
     }
 }

@@ -47,7 +47,7 @@ public class AjaxCartController {
                     .body(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(messageDto));
         }
         try {
-            cartService.addPhone(cartItemDto.getId(), cartItemDto.getQuantityValue());
+            cartService.addPhone(cartItemDto.getId(), cartItemDto.getQuantity());
         } catch (OutOfStockException e) {
             MessageDto messageDto = new MessageDto(e.getErrorInfos().get(0).getMessage());
             return ResponseEntity.badRequest()

@@ -11,6 +11,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CartItemDto implements Serializable {
     private Long id;
-    private String quantity;
-    private Integer quantityValue;
+    private Integer quantity;
 }

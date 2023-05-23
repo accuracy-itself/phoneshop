@@ -9,6 +9,7 @@ import com.es.phoneshop.web.validation.QuantityUpdateValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -52,11 +52,17 @@ public class CartPageController {
         if (!bindingResult.hasErrors()) {
             try {
                 cartService.update(cartDto.getItems().stream()
-                        .collect(Collectors.toMap(CartItemDto::getId, CartItemDto::getQuantityValue)));
+                        .collect(Collectors.toMap(CartItemDto::getId, CartItemDto::getQuantity)));
             } catch (OutOfStockException e) {
-                Map<Long, String> errors = new HashMap<>();
-                errors.put(e.getErrorInfos().get(0).getPhoneId(), e.getErrorInfos().get(0).getMessage());
-                model.addAttribute("error_quantities", errors);
+                long errorId = e.getErrorInfos().get(0).getPhoneId();
+                int errorIndex = IntStream.range(0, cartDto.getItems().size())
+                        .filter(index -> cartDto.getItems().get(index).getId().equals(errorId))
+                        .findFirst()
+                        .orElse(-1);
+                String valueName = String.format("items[%d].quantity", errorIndex);
+                bindingResult.addError(new FieldError("cartDto", valueName,
+                        e.getErrorInfos().get(0).getStockRequested(),
+                        false, null, null, e.getErrorInfos().get(0).getMessage()));
             }
         }
         model.addAttribute("cart", cartService.getCart());

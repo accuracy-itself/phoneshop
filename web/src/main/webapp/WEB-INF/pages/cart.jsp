@@ -44,10 +44,9 @@
                <br>
                <form:hidden path="items[${status.index}].id" value="${phoneItem.phone.id}"/>
                <form:input path="items[${status.index}].quantity" class="quantity" value="${items[status.index].quantity}"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                    />
                <br>
                <form:errors path="items[${status.index}].quantity" class="error"/>
-               <div class="error">${error_quantities[phoneItem.phone.id]}</div>
                <br>
           </td>
           <td>
