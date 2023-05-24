@@ -5,9 +5,13 @@ import com.es.phoneshop.web.dto.CartItemDto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 public class QuantityUpdateValidator implements Validator {
+    @Resource
+    QuantityChecker quantityChecker;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return CartDto.class.equals(aClass);
@@ -20,7 +24,7 @@ public class QuantityUpdateValidator implements Validator {
         for (int i = 0; i < cartDtoItems.size(); i++) {
             CartItemDto cartItemDto = cartDtoItems.get(i);
             String valueName = String.format("items[%d].quantity", i);
-            QuantityChecker.checkQuantity(cartItemDto, valueName, errors);
+            quantityChecker.checkQuantity(cartItemDto, valueName, errors);
         }
     }
 }

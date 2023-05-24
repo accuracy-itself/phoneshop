@@ -57,8 +57,7 @@
           <td>${phone.displaySizeInches}</td>
           <td class = price>${phone.price} $</td>
           <td class = "quantity-td">
-               <input name="quantity" type="number" id="quantity${phone.id}" class="quantity" value="1"
-                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+               <input name="quantity" id="quantity${phone.id}" class="quantity" value="1">
                <br>
                <span id="error-quantity${phone.id}" class="error"></span>
           </td>
