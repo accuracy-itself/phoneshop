@@ -6,14 +6,11 @@ import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.phoneshop.web.dto.CartDto;
 import com.es.phoneshop.web.dto.CartItemDto;
 import com.es.phoneshop.web.dto.MessageDto;
-import com.es.phoneshop.web.validation.QuantityValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,15 +24,8 @@ public class AjaxCartController {
     @Resource
     private CartService cartService;
 
-    @Resource
-    private QuantityValidator quantityValidator;
-
     private final String QUANTITY_ERROR_MESSAGE = "Quantity must be a positive number.";
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(quantityValidator);
-    }
 
     @PostMapping
     public ResponseEntity<?> addPhone(@RequestBody @Valid CartItemDto cartItemDto,

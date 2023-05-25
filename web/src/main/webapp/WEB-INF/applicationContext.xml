@@ -10,9 +10,5 @@
     <bean id="cartItemDtoConverter" class="com.es.phoneshop.web.dto.converter.CartItemDtoConverter"/>
     <bean id="orderDtoConverter" class="com.es.phoneshop.web.dto.converter.OrderDtoConverter"/>
     <bean id="orderItemDtoConverter" class="com.es.phoneshop.web.dto.converter.OrderItemDtoConverter"/>
-    <bean id="quantityValidator" class="com.es.phoneshop.web.validation.QuantityValidator"/>
-    <bean id="quantityChecker" class="com.es.phoneshop.web.validation.QuantityChecker"/>
-    <bean id="quantityUpdateValidator" class="com.es.phoneshop.web.validation.QuantityUpdateValidator"/>
-    <bean id="orderDtoValidator" class="com.es.phoneshop.web.validation.OrderDtoValidator"/>
     <bean id="quickOrderValidator" class="com.es.phoneshop.web.validation.QuickOrderValidator"/>
 </beans>

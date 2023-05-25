@@ -5,7 +5,6 @@ import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.phoneshop.web.dto.CartDto;
 import com.es.phoneshop.web.dto.CartItemDto;
 import com.es.phoneshop.web.dto.converter.CartDtoConverter;
-import com.es.phoneshop.web.validation.QuantityUpdateValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,9 +27,6 @@ public class CartPageController {
     private CartService cartService;
 
     @Resource
-    private QuantityUpdateValidator quantityUpdateValidator;
-
-    @Resource
     private CartDtoConverter cartDtoConverter;
 
     @ModelAttribute
@@ -48,7 +44,6 @@ public class CartPageController {
     public String updateCart(@ModelAttribute("cartDto") @Valid CartDto cartDto,
                              BindingResult bindingResult,
                              Model model) {
-        quantityUpdateValidator.validate(cartDto, bindingResult);
         if (!bindingResult.hasErrors()) {
             try {
                 cartService.update(cartDto.getItems().stream()

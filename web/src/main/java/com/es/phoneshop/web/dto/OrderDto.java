@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,12 +16,13 @@ public class OrderDto {
     private BigDecimal deliveryPrice;
     private BigDecimal totalPrice;
 
+    @Pattern(regexp = "[a-zA-Z]+")
     private String firstName;
-
+    @Pattern(regexp = "^(?=\\s*\\S).*$")
     private String lastName;
-
+    @Pattern(regexp = "^(?=\\s*\\S).*$")
     private String deliveryAddress;
-
+    @Pattern(regexp = "[0-9]+")
     private String contactPhoneNo;
 
     private List<OrderItemDto> items;

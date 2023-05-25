@@ -46,8 +46,9 @@ public class QuickOrderEntryPageController {
         List<CartItemDto> items = quickOrderDto.getItems();
 
         for (int i = 0; i < items.size(); i++) {
-            String valueName = String.format("items[%d]", i);
-            if (!(bindingResult.hasFieldErrors(valueName))) {
+            String idValueName = String.format("items[%d].id", i);
+            String quantityValueName = String.format("items[%d].quantity", i);
+            if (!(bindingResult.hasFieldErrors(idValueName) || bindingResult.hasFieldErrors(quantityValueName))) {
                 CartItemDto item = items.get(i);
                 if (addToCart(item, i, bindingResult)) {
                     successes.add(item.getId() + " added successfully.");

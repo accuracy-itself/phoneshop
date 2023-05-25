@@ -30,8 +30,10 @@
                         <form:input path="items[${index}].quantity" class="quantity" value="${items[index].quantity}"/>
                      <td>
                         <div class="error">
+                        <c:if test="${not empty quickOrderDto.items[index].id or not empty quickOrderDto.items[index].quantity}">
                             <form:errors path="items[${index}].id" class="error"/>
                             <form:errors path="items[${index}].quantity" class="error"/>
+                         </c:if>
                         </div>
                      </td>
                  </tr>
