@@ -8,7 +8,7 @@ import com.es.phoneshop.web.validation.QuickOrderValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,18 +47,12 @@ public class QuickOrderEntryPageController {
 
         for (int i = 0; i < items.size(); i++) {
             String valueName = String.format("items[%d]", i);
-            CartItemDto item = items.get(i);
             if (!(bindingResult.hasFieldErrors(valueName))) {
-                try {
-                    cartService.addPhone(item.getId(), item.getQuantity());
+                CartItemDto item = items.get(i);
+                if (addToCart(item, i, bindingResult)) {
                     successes.add(item.getId() + " added successfully.");
                     item.setId(null);
                     item.setQuantity(null);
-                } catch (OutOfStockException e) {
-                    String quantityValueName = String.format("items[%d].quantity", i);
-                    bindingResult.addError(new FieldError("cartDto", quantityValueName,
-                            e.getErrorInfos().get(0).getStockRequested(),
-                            false, null, null, e.getErrorInfos().get(0).getMessage()));
                 }
             }
         }
@@ -66,5 +60,17 @@ public class QuickOrderEntryPageController {
         model.addAttribute("cart", cartService.getCart());
         model.addAttribute("successes", successes);
         return "quickOrderEntry";
+    }
+
+    private boolean addToCart(CartItemDto item, int index, Errors errors) {
+        try {
+            cartService.addPhone(item.getId(), item.getQuantity());
+            return true;
+        } catch (OutOfStockException e) {
+            String quantityValueName = String.format("items[%d].quantity", index);
+            errors.rejectValue(quantityValueName, "outOfStock", e.getErrorInfos().get(0).getMessage());
+        }
+
+        return false;
     }
 }

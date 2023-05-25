@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <tags:master pageTitle="Quick order entry">
+<div class = "quick_order_body">
     <c:forEach var="success" items="${successes}">
         <div class="success">
             ${success}
@@ -11,7 +12,7 @@
     </c:forEach>
 
     <form:form action="quickOrderEntry" method="post" modelAttribute="quickOrderDto">
-        <table>
+        <table class="quick_order_table">
              <thead>
                  <tr>
                    <th>Phone Code</th>
@@ -29,9 +30,8 @@
                         <form:input path="items[${index}].quantity" class="quantity" value="${items[index].quantity}"/>
                      <td>
                         <div class="error">
-                        <c:if test="${not empty quickOrderDto.items[index].id or not empty quickOrderDto.items[index].quantity}">
-                            <form:errors path="items[${index}]" class="error"/>
-                        </c:if>
+                            <form:errors path="items[${index}].id" class="error"/>
+                            <form:errors path="items[${index}].quantity" class="error"/>
                         </div>
                      </td>
                  </tr>
@@ -43,5 +43,5 @@
             <input type="submit" value="Add" class="button">
         </div>
     </form:form>
-
+</div>
 </tags:master>
