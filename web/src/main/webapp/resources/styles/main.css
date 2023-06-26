@@ -196,3 +196,9 @@ a:active {
     justify-content: right;
     column-gap: 10px;
 }
+
+.quick_order_body {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}

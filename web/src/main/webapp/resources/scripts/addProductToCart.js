@@ -18,10 +18,11 @@ function addToCart(phoneId) {
                 $("#success-quantity").html("Added successfully!");
                 },
         error: function (error) {
-                console.log("error: ", error);
-                console.log("error-quantity" + phoneId);
-
-                $("#error-quantity" + phoneId).html(JSON.parse(error.responseText).message);
+                try{
+                    $("#error-quantity" + phoneId).html(JSON.parse(error.responseText).message);
+                } catch(e) {
+                    $("#error-quantity" + phoneId).html("Quantity must be a positive number.");
+                }
                 $("#success-quantity").html("");
                 }
     });

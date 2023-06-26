@@ -7,7 +7,6 @@ import com.es.core.model.phone.stock.OutOfStockException;
 import com.es.core.order.OrderService;
 import com.es.phoneshop.web.dto.OrderDto;
 import com.es.phoneshop.web.dto.converter.OrderDtoConverter;
-import com.es.phoneshop.web.validation.OrderDtoValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,9 +29,6 @@ public class OrderPageController {
 
     @Resource
     private OrderDtoConverter orderDtoConverter;
-
-    @Resource
-    private OrderDtoValidator orderDtoValidator;
 
     private final String CART_ERROR_MESSAGE = "Some models are out of stock, cart was updated.";
     private final String CART_EMPTY_ERROR_MESSAGE = "Cart is empty, add something here.";
@@ -61,7 +57,6 @@ public class OrderPageController {
     @PostMapping
     public String placeOrder(@Valid @ModelAttribute("orderDto") OrderDto orderDto, BindingResult bindingResult,
                              Model model) {
-        orderDtoValidator.validate(orderDto, bindingResult);
         if (bindingResult.hasErrors()) {
             Cart cart = cartService.getCart();
             Order order = orderService.createOrder(cart);

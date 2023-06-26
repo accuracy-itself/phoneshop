@@ -33,7 +33,9 @@
       <hr />
 
   <tags:login/>
-
+  <a href="<c:url value="/quickOrderEntry"/>">
+    Quick order
+  </a>
   </header>
   <main>
     <jsp:doBody/>
