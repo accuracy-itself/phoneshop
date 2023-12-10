@@ -7,7 +7,7 @@
 
     <import resource="classpath:context/applicationContext-core.xml"/>
 
-    <jdbc:initialize-database enabled="true" data-source="dataSource">
+    <jdbc:initialize-database enabled="${db.insertDemodata}" data-source="dataSource">
         <jdbc:script location="classpath:db/demodata-phones.sql" />
     </jdbc:initialize-database>
 </beans>

@@ -6,6 +6,10 @@
 <tags:master pageTitle="Product Details">
   <div class="product-description">
     <div class="phone-column">
+    </div>
+    <div class="phone-column">
+    </div>
+    <div class="phone-column">
       <img src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${phone.imageUrl}">
       <div>${phone.description}</div>
       <br>
@@ -60,6 +64,8 @@
             </tr>
           </tbody>
       </table>
+    </div>
+    <div class="phone-column">
     </div>
     <div class="phone-column">
       <table class="product-table">
@@ -142,6 +148,10 @@
            </tr>
          </tbody>
       </table>
+    </div>
+    <div class="phone-column">
+    </div>
+    <div class="phone-column">
     </div>
   </div>
   

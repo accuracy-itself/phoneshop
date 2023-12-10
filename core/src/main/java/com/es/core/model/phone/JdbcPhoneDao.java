@@ -28,6 +28,7 @@ public class JdbcPhoneDao implements PhoneDao {
     private final String QUERY_SELECT_AVAILABLE =
             "join stocks on stocks.phoneId = phones.id " +
                     "where phones.price is not null and stocks.stock > stocks.reserved ";
+    private final String QUERY_AS_PHONES_PART = ") as phones ";
     private final String QUERY_SELECT_AVAILABLE_PHONES_WITH =
             "select phones.*, " +
                     "colors.id as colorId," +
@@ -35,7 +36,7 @@ public class JdbcPhoneDao implements PhoneDao {
                     "from (select * from phones " +
                     QUERY_SELECT_AVAILABLE;
 
-    private final String QUERY_OFFSET_LIMIT = "offset ? limit ? ) as phones ";
+    private final String QUERY_OFFSET_LIMIT = "limit ? offset ? ";
 
     private final String QUERY_JOIN_COLOR =
             "left join phone2color on phone2color.phoneId = phones.id " +
@@ -105,6 +106,7 @@ public class JdbcPhoneDao implements PhoneDao {
 
     public List<Phone> findAll(String query, SortField sortField, SortOrder sortOrder, int offset, int limit) {
         StringBuilder queryPhones = new StringBuilder(QUERY_SELECT_AVAILABLE_PHONES_WITH);
+        queryPhones.append(QUERY_AS_PHONES_PART);
 
         boolean queryEmpty = query == null || query.trim().equals("");
         if (!queryEmpty) {
@@ -122,10 +124,10 @@ public class JdbcPhoneDao implements PhoneDao {
             queryPhones.append(sortOrder).append(" ");
         }
 
-        queryPhones.append(QUERY_OFFSET_LIMIT);
         queryPhones.append(QUERY_JOIN_COLOR);
+        queryPhones.append(QUERY_OFFSET_LIMIT);
 
-        return jdbcTemplate.query(queryPhones.toString(), new PhoneResultSetExtractor(), offset, limit);
+        return jdbcTemplate.query(queryPhones.toString(), new PhoneResultSetExtractor(), limit, offset);
     }
 
     @Override
